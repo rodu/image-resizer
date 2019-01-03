@@ -1,8 +1,8 @@
 {
-  "name": "image-resize",
+  "name": "image-resizer",
   "version": "1.0.0",
   "description": "",
-  "main": "src/image-resize.js",
+  "main": "src/image-resizer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
