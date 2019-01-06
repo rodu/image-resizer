@@ -9,12 +9,11 @@ const extension = imageFile.substring(
   imageFile.lastIndexOf('.') + 1,
   imageFile.length
 );
-const filePath = path.join(__dirname, imageFile);
 
 const extensionRegExp = new RegExp(`.${extension}$`, 'i');
 breakpoints.forEach((res) => {
-  const destFile = filePath.replace(extensionRegExp, `-${res}w.${extension}`);
+  const destFile = imageFile.replace(extensionRegExp, `-${res}w.${extension}`);
 
   console.log(`generating ${destFile}`);
-  exec(`convert -resize ${res}x${res} ${filePath} ${destFile}`);
+  exec(`convert -resize ${res}x${res} ${imageFile} ${destFile}`);
 });
