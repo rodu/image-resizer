@@ -1,4 +1,3 @@
-const path = require('path');
 const { exec } = require('child_process');
 
 const cli = require('./cli');
@@ -11,9 +10,31 @@ const extension = imageFile.substring(
 );
 
 const extensionRegExp = new RegExp(`.${extension}$`, 'i');
-breakpoints.forEach((res) => {
-  const destFile = imageFile.replace(extensionRegExp, `-${res}w.${extension}`);
+const resizeImage = function(size) {
+  const destFile = imageFile.replace(
+    extensionRegExp,
+    `-${size}w.${extension}`
+  );
 
-  console.log(`generating ${destFile}`);
-  exec(`convert -resize ${res}x${res} ${imageFile} ${destFile}`);
-});
+  exec(`convert -resize ${size}x${size} ${imageFile} ${destFile}`);
+};
+const printImageTag = () => {
+  console.log('<img srcset="');
+
+  breakpoints.forEach((size) => {
+    const destFile = imageFile.replace(
+      extensionRegExp,
+      `-${size}w.${extension}`
+    );
+
+    console.log(`\timg/${destFile} ${size}w,\n`);
+  });
+
+  console.log('sizes="100vw"');
+  console.log(`src="img/${imageFile}" alt="">`);
+};
+
+// Creates the thumbnail image
+// resizeImage.call({}, 400);
+// breakpoints.forEach(resizeImage);
+printImageTag();
